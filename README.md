@@ -1,28 +1,27 @@
 # babel-plugin-transform-jsx-arrow
-wrap jsx expression to ()=> expr
-
-# babel-plugin-transform-react-jsx-source
-
-> Adds source file and line number to JSX elements.
+> wrap jsx expression to ()=> expr
 
 ## Example
 
 **In**
 
 ```
-<sometag />
+/* @jsx-arrow m */
+<div id={m.id}> {m.id} </div>
 ```
 
 **Out**
 
+the same as
+
 ```
-<sometag __source={ { fileName: 'this/file.js', lineNumber: 10 } } />
+<div id={(m) => m.id}> {(m) => m.id} </div>
 ```
 
 ## Installation
 
 ```sh
-npm install --save-dev babel-plugin-transform-react-jsx-source
+npm install --save-dev babel-plugin-transform-jsx-arrow
 ```
 
 ## Usage
@@ -33,20 +32,20 @@ npm install --save-dev babel-plugin-transform-react-jsx-source
 
 ```json
 {
-  "plugins": ["transform-react-jsx-source"]
+  "plugins": ["babel-plugin-transform-jsx-arrow"]
 }
 ```
 
 ### Via CLI
 
 ```sh
-babel --plugins transform-react-jsx-source script.js
+babel --plugins babel-plugin-transform-jsx-arrow script.js
 ```
 
 ### Via Node API
 
 ```javascript
 require("babel-core").transform("code", {
-  plugins: ["transform-react-jsx-source"]
+  plugins: ["babel-plugin-transform-jsx-arrow"]
 });
 ``` 
