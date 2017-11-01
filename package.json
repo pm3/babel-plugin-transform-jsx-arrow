@@ -7,6 +7,10 @@
   "keywords": [
     "babel-plugin"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pm3/babel-plugin-transform-jsx-arrow"
+  }, 
   "scripts": {
     "build": "npx babel src/index.js --out-file lib/index.js --presets=es2015"
   }, 
