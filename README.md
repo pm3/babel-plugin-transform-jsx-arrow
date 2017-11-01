@@ -6,13 +6,17 @@
 **In**
 
 ```
-<sometag />
+/* @jsx  */
+/* @jsx-arrow m */
+<div id={m.id}> {m.id} </div>
 ```
 
 **Out**
 
+the same as
+
 ```
-<sometag __source={ { fileName: 'this/file.js', lineNumber: 10 } } />
+<div id={(m) => m.id}> {(m) => m.id} </div>
 ```
 
 ## Installation
