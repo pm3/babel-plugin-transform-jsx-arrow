@@ -6,7 +6,6 @@
 **In**
 
 ```
-/* @jsx  */
 /* @jsx-arrow m */
 <div id={m.id}> {m.id} </div>
 ```
