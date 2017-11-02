@@ -15,8 +15,8 @@ export default function ({ types: t }) {
 
   t.react.isCompatTag = function(tagName){ return true };
   
-  const JSX_ANNOTATION_REGEX = /\*?\s*@jsx-arrow\s+([^\s]+)/;
-  var params = [];
+  const JSX_ANNOTATION_REGEX = /\*?\s*@jsx-arrow\s*\(([^\)]*)\)/;
+  var params = null;
 
 
   const visitor = {
@@ -24,7 +24,7 @@ export default function ({ types: t }) {
   	Program(path, state) { 
 
 		const { file } = state; 
-		let sparams = state.opts.pragma;
+		let sparams = null;
 
 		for(const comment of file.ast.comments) {
       		const matches = JSX_ANNOTATION_REGEX.exec(comment.value);
@@ -35,13 +35,13 @@ export default function ({ types: t }) {
         }
 
         if(sparams) {
-        	params = sparams.split(',').map((e) => e.trim());
+        	params = sparams.split(',').map((e) => e.trim()).filter((e)=>e && e.length>0);
         }
 
   	},
 
   	JSXExpressionContainer(path) {
-		if(path.parent && (path.parent.type=='JSXAttribute' || path.parent.type=='JSXElement')){
+		if(params && path.parent && (path.parent.type=='JSXAttribute' || path.parent.type=='JSXElement')){
 			if(!path.node._kox){
 				path.node.expression = t.arrowFunctionExpression(params.map((n)=> t.identifier(n)), path.node.expression, false);
 				path.node._kox = true;
